@@ -1,7 +1,7 @@
 package DynamicProgramming;
 
 public class ClimbingStairs {
-    
+  
     // Time complexity is O(n) and space complexity is O(n).
     public int climbStairs(int n) {
         if(n<=2) return n;
@@ -25,11 +25,24 @@ public class ClimbingStairs {
         }
         return second;
     }
+  
+    public int climbStairsOptimal(int n) {
+        int pre = 1;
+        int curr = 1;
+        int temp = 0;
+
+        for(int i=1; i<n; i++) {
+            temp = curr;
+            curr = curr+pre;
+            pre = temp;
+        }
+        return curr;
+    }
 
     public static void main(String[] args) {
         ClimbingStairs obj = new ClimbingStairs();
         System.out.println(obj.climbStairs(3));
         System.out.println(obj.climbStairs2(3));
-
     }
+
 }

@@ -1,7 +1,7 @@
 package DynamicProgramming;
 
 public class CoinChange {
-
+  
     //Time complexity is O(n * amount), space complexity is O(amount)
     public int minimumNumOfCoins(int[] coins,int amount) {
         int[] dp = new int[amount+1];
