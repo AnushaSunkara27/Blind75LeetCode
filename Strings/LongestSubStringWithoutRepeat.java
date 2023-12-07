@@ -1,28 +1,33 @@
 package Strings;
 
-import java.util.HashMap;
+import java.util.HashSet;
 
 public class LongestSubStringWithoutRepeat {
 
-    public int lengthOfLongestSubString(String input) {
-        int length = 0;
-        int left = 0;
-        HashMap<Character, Integer> hashMap = new HashMap<>();
-
-        for(int right = 0; right < input.length(); right++) {
-            if(!hashMap.containsKey(input.charAt(right))) {
-                hashMap.put(input.charAt(right), right);
+    public int lengthOfLongestSubString(String s) {
+        HashSet<Character> characters = new HashSet<>();
+        int maxCount = 0;
+        int i = 0;
+        int j = 0;
+        int currentCount = 0;
+        while(j< s.length()) {
+            if(characters.contains(s.charAt(j))) {
+                characters.remove(s.charAt(i));
+                i++;
             } else {
-                left = Math.max(left, hashMap.get(input.charAt(right))+1);
-                hashMap.put(input.charAt(right), right);
+                characters.add(s.charAt(j));
+                j++;
+                currentCount = j-i;
+                maxCount = Math.max(currentCount, maxCount);
             }
-            length = Math.max(length, right-left + 1);
         }
-        return length;
+        return maxCount;
     }
 
+    
+
     public static void main(String[] args) {
-        String input = "abba";
+        String input = "abcabcbb";
         LongestSubStringWithoutRepeat obj = new LongestSubStringWithoutRepeat();
         System.out.println("Length of longest substring is  "+ obj.lengthOfLongestSubString(input));
     }

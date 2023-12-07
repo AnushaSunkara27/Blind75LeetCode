@@ -1,34 +1,64 @@
 package Strings;
 
-import java.util.HashMap;
-
 public class LongestRepeatingCharReplacement {
 
-    public int characterReplacement(String input, int k) {
-        HashMap<Character,Integer> count = new HashMap<>();
-        int res = 0;
-        int l = 0;
-        int r = 0;
-        while(r<input.length()) {
-            if(!count.containsKey(input.charAt(r))) {
-                count.put(input.charAt(r), 1);
-            } else {
-                count.put(input.charAt(r),count.get(input.charAt(r))+1);
+    public static int characterReplacement(String s, int k) {
+        int n = s.length();
+        int[] count = new int[26]; // Assuming only uppercase English letters
+    
+        int maxCount = 0;
+        int maxLength = 0;
+        int i = 0;
+        
+        for (int j = 0; j < n; j++) {
+            char currentChar = s.charAt(j);
+            count[currentChar - 'A']++;
+    
+            // Update maxCount with the most frequent character in the current window
+            maxCount = Math.max(maxCount, count[currentChar - 'A']);
+    
+            // If the window size - maxCount > k, shrink the window from the left
+            if (j - i + 1 - maxCount > k) {
+                count[s.charAt(i) - 'A']--;
+                i++;
             }
-
-            int windowSize = r-l+1;
-            int maxfreq = Math.max(count.values());
-            if(windowSize-maxfreq <= k) {
-                r = r+1;
-            } else {
-                l = l+1;
-            }
-
+    
+            // Update the maxLength
+            maxLength = Math.max(maxLength, j - i + 1);
         }
+    
+        return maxLength;
     }
+    
+
+    public static int characterReplacementMyApproach(String s, int k) {
+        int i = 0;
+        int replacements = k;
+        int maxLength = 0;
+        int currLength = 0;
+        for(int j =0; j < s.length(); j++) {
+  
+          if(s.charAt(i) == s.charAt(j)) {
+            currLength++;
+          } else {
+            if(replacements != 0) {
+              currLength++;
+              replacements--;
+            } else {
+              i++;
+              j = i;
+              currLength = 0;
+            }
+          }
+          maxLength = Math.max(maxLength, currLength);
+  
+        }
+  
+        return maxLength;
+      }
 
     public static void main(String[] args) {
-        String input = "ABABBA";
-
+        String input = "ABBB";
+        System.out.println(characterReplacementMyApproach(input, 2));
     }
 }
