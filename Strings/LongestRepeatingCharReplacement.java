@@ -59,6 +59,6 @@ public class LongestRepeatingCharReplacement {
 
     public static void main(String[] args) {
         String input = "ABBB";
-        System.out.println(characterReplacementMyApproach(input, 2));
+        System.out.println(characterReplacement(input, 2));
     }
 }
