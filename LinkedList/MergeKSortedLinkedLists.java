@@ -3,7 +3,7 @@ package LinkedList;
 import java.util.PriorityQueue;
 
 public class MergeKSortedLinkedLists {
-
+ 
     public class ListNode {
         int val;
         ListNode next;
@@ -11,7 +11,7 @@ public class MergeKSortedLinkedLists {
         ListNode(int val) { this.val = val; }
         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
    }
-   
+
     public ListNode mergeKLists(ListNode[] lists) {
         
         PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
